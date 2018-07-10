@@ -13,8 +13,7 @@
   
   	<!--  	CSSs ACA 		************************************************************************* -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  	
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">	
   	<link rel="stylesheet" href="css/theme.css" type="text/css">
 	
 	<!-- 	SCRIPTS ACA		************************************************************************* -->
@@ -41,12 +40,26 @@
       <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="registroUsuario">
               <i class="fa d-inline fa-lg fa-sign-in"></i> Registrarme</a>
           </li>
         </ul>
-        <a class="btn navbar-btn ml-2 text-white btn-secondary">
-          <i class="fa d-inline fa-lg fa-user-circle-o"></i>&nbsp;Login</a>
+       <c:if test="${not empty nombre}">
+	        <a class="btn navbar-btn ml-2 text-white btn-secondary" href="desloguearse">
+	         <i class="fa fa-user-times"></i>&nbsp;Cerrar Sesion</a>
+	          <c:if test="${not empty foto}">
+	          <div class="col-md-1">	 
+			   <div class="card">
+			     <img class="card-img-top" src="img/${foto}" alt="Card image cap">
+			   </div>
+			 </div>
+			 </c:if>
+	         </c:if>
+	    <c:if test="${empty nombre}">
+	        		<a class="btn navbar-btn ml-2 text-white btn-secondary" href="login">
+	        		<i class="fa d-inline fa-lg fa-user-circle-o"></i>&nbsp;Login</a>
+	        </c:if>
+	      
       </div>
     </div>
   </nav>
@@ -75,9 +88,17 @@
             <li class="nav-item">
               <a href="#" class="nav-link">Contacto</a>
             </li>
+            <c:if test="${not empty admin }">
             <li class="nav-item">
               <a href="homeAdmin" class="nav-link">Menu Admin</a>
             </li>
+            </c:if>
+            <c:if test="${not empty user}">
+            <li class="nav-item">
+              <a href="homeUsuario" class="nav-link">Menu Usuario</a>
+            </li>
+            </c:if>
+            
           </ul>
         </div>
       </div>
