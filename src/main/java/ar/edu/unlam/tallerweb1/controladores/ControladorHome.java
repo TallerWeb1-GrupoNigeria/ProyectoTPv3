@@ -31,6 +31,16 @@ public class ControladorHome {
 		return new ModelAndView ("inicio",model);
 	}
 	
+	
+	@RequestMapping(path="/homeAdmin")
+	public ModelAndView homeAdmin(){ 
+		
+		ModelMap model = new ModelMap();
+		model.put("keyListarEventos", servicioEvento.listarTodosEventosService());
+		
+		return new ModelAndView("homeAdmin",model);
+	 }
+	
 
 	@RequestMapping(path = "/filtros-Busqueda", method = RequestMethod.POST)
 	public ModelAndView validarLogin(@ModelAttribute("evento") Evento evento) {

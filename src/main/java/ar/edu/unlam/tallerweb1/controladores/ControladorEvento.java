@@ -15,7 +15,7 @@ import ar.edu.unlam.tallerweb1.modelo.Evento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEvento;
 
 @Controller
-public class ControladorAdmin {
+public class ControladorEvento {
 	
 	@Inject
 	private ServicioEvento servicioEvento;
@@ -41,21 +41,9 @@ public class ControladorAdmin {
 			
 			return new ModelAndView("redirect:/homeAdmin");
 	}
-	
-	
-	// LISTADO DE TODOS LOS EVENTOS EN EL HOMEADMIN
-	@RequestMapping(path="/homeAdmin")
-	public ModelAndView homeAdmin(){ 
-		
-		ModelMap model = new ModelMap();
-		model.put("keyListarEventos", servicioEvento.listarTodosEventosService());
-		
-		return new ModelAndView("homeAdmin",model);
-	 }
-	
+
 	
 	// EDITAR EVENTO
-	
 	@RequestMapping(value = "/actualizarEvento")
 	public ModelAndView actualizarEvento( @RequestParam("id") Long id) {
 		
