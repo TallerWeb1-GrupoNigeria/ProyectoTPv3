@@ -21,6 +21,16 @@ public class ControladorEvento {
 	private ServicioEvento servicioEvento;
 	
 	
+	public ServicioEvento getServicioEvento() {
+		return servicioEvento;
+	}
+
+
+	public void setServicioEvento(ServicioEvento servicioEvento) {
+		this.servicioEvento = servicioEvento;
+	}
+
+
 	// FORMULARIO PARA LA CREACION DEL EVENTO
 	@RequestMapping(path = "/crearEvento")
 	public ModelAndView crearEvento() {
@@ -38,43 +48,55 @@ public class ControladorEvento {
 	public ModelAndView CargarEventoABD(@ModelAttribute("keyEvento") Evento evento){
 		
 			servicioEvento.crearEventoService(evento);
-			
+			Evento eventoGuardado = servicioEvento.buscarEventoPorIdService(evento.getId());
+			if( eventoGuardado.getId() == (long)1 ) {
 			return new ModelAndView("redirect:/homeAdmin");
+			}else {
+				return new ModelAndView("redirect:/");
+			}
 	}
 
 	
 	// EDITAR EVENTO
 	@RequestMapping(value = "/actualizarEvento")
-	public ModelAndView actualizarEvento( @RequestParam("id") Long id) {
-		
-		Evento evento = servicioEvento.buscarEventoPorIdService(id);
+	public ModelAndView actualizarEvento( @RequestParam("id") Long id) 
+	{
 		ModelMap model = new ModelMap();
-		model.put("keyEvento", evento);
-		
-		return new ModelAndView("actualizarEvento", model);
+		Evento evento = servicioEvento.buscarEventoPorIdService(id);
+		long idResult = evento.getId();
+		if(idResult == (long) 1) {		
+			model.put("keyEvento", evento);
+			return new ModelAndView("actualizarEvento", model);
+		}else {
+			model.put("error", "evento no encontrado");
+		}
+		return new ModelAndView("homeAdmin", model);
 	}
-	
-	
+		
 	@RequestMapping(path = "/validarActualizarEvento", method = RequestMethod.POST)
-	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
-		
+	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento) {
 		servicioEvento.actualizarEventoService(evento);		
-
+		
 		return new ModelAndView("redirect:/homeAdmin");
-
-	}
-	
+	}	
+			
 	// MOSTRAR DETALLE DEL EVENTO
 	@RequestMapping(path = "/detalleEvento")
 	public ModelAndView detalleEvento(@RequestParam("id") Long id) {
 		
 		ModelMap model = new ModelMap();
 		Evento evento = servicioEvento.buscarEventoPorIdService(id);
-		model.put("keyEvento", evento);
+		long result = evento.getId();
+		if( result != (long) 1) {
+			model.put("error","no se encontro el evento");
+			return new ModelAndView("homeAdmin", model);
+		}else {
+			model.put("keyEvento", evento);
+			return new ModelAndView("detalleEvento", model);
+		}
 		
-		return new ModelAndView("detalleEvento", model);
 	}
-	
+
 	
 	
 } // FIN CONTROLLER

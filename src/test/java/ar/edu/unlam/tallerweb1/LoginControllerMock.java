@@ -85,18 +85,18 @@ public class LoginControllerMock extends SpringTest {
         //ModelAndView modelAndView = controladorLogin.registroValidar(usuarioMock, requestMock);
         assertThat(modelAndView.getViewName()).isEqualTo("redirect:login");
     }
-//    @Test
-//    @Transactional
-//    @Rollback(true)
-//    public void emailUsadoDeberiaIrRegistroUsuario() throws Exception {
-//        when(requestMock.getSession()).thenReturn(sessionMock);
-//        when(usuarioMock.getEmail()).thenReturn(null);
-//        when(servicioLoginMock.validarUsuario(usuarioMock.getEmail()));
-//        requestMock.setAttribute("email", usuarioMock.getEmail());
-//        ModelAndView modelAndView = controladorLogin.cargarDatosUsuario(usuarioMock, requestMock);
-//        //ModelAndView modelAndView = controladorLogin.registroValidar(usuarioMock, requestMock);
-//        assertThat(modelAndView.getViewName()).isEqualTo("registroUsuario");
-//    }
+    @Test
+    @Transactional
+    @Rollback(true)
+    public void emailUsadoDeberiaIrRegistroUsuario() throws Exception {
+        when(requestMock.getSession()).thenReturn(sessionMock);
+        when(usuarioMock.getEmail()).thenReturn("l@l");
+        when(servicioLoginMock.validarUsuario(usuarioMock.getEmail())).thenReturn(usuarioMock);
+       requestMock.setAttribute("email", usuarioMock.getEmail());
+        ModelAndView modelAndView = controladorLogin.cargarDatosUsuario(usuarioMock, requestMock);
+        //ModelAndView modelAndView = controladorLogin.registroValidar(usuarioMock, requestMock);
+        assertThat(modelAndView.getViewName()).isEqualTo("registroUsuario");
+    }
     
    
     
