@@ -23,6 +23,14 @@ public class ControladorLogin {
 	@Inject
 	private ServicioLogin servicioLogin;
 
+	public ServicioLogin getServicioLogin() {
+		return servicioLogin;
+	}
+
+	public void setServicioLogin(ServicioLogin servicioLogin) {
+		this.servicioLogin = servicioLogin;
+	}
+
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
 	public ModelAndView irALogin() {
@@ -103,7 +111,7 @@ public class ControladorLogin {
 			 if (servicioLogin.validarUsuario(email) == null){
 			    servicioLogin.registrarUsuario(usuarioReg);
 			    request.getSession().setAttribute("mensaje","bienvenido inicia sesion");
-			  return new ModelAndView ("redirect: login");
+			  return new ModelAndView ("redirect:login");
 			 }else{
 			model.put("error", "Email en uso - intente nuevamente");
 			 }
