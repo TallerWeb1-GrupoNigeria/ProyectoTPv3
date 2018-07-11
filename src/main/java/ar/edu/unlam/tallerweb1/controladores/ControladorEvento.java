@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +22,16 @@ public class ControladorEvento {
 	@Inject
 	private ServicioEvento servicioEvento;
 	
-	
+
+	public ServicioEvento getServicioEvento() {
+		return servicioEvento;
+	}
+
+	public void setServicioEvento(ServicioEvento servicioEvento) {
+		this.servicioEvento = servicioEvento;
+	}
+
+
 	// FORMULARIO PARA LA CREACION DEL EVENTO
 	@RequestMapping(path = "/crearEvento")
 	public ModelAndView crearEvento() {
@@ -73,6 +84,17 @@ public class ControladorEvento {
 		model.put("keyEvento", evento);
 		
 		return new ModelAndView("detalleEvento", model);
+	}
+	
+	
+	// BUSCAR EVENTOS
+	@RequestMapping(path = "/filtros-Busqueda", method = RequestMethod.POST)
+	public ModelAndView buscarEventos(@ModelAttribute("evento") Evento evento) {
+		ModelMap model = new ModelMap();
+		
+		 List<Evento> resultadoDeEventos = servicioEvento.buscarEventosService(evento.getNombre());
+		 model.put("keyListarEventos", resultadoDeEventos);
+		return new ModelAndView("inicio", model);
 	}
 	
 	
