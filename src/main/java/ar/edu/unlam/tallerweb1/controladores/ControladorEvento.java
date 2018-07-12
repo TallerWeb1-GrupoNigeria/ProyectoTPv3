@@ -66,14 +66,14 @@ public class ControladorEvento {
 	}
 	
 	
-	@RequestMapping(path = "/validarActualizarEvento", method = RequestMethod.POST)
-	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
-		
-		servicioEvento.actualizarEventoService(evento);		
-
-		return new ModelAndView("redirect:/homeAdmin");
-
-	}
+//	@RequestMapping(path = "/validarActualizarEvento", method = RequestMethod.POST)
+//	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
+//		
+//		servicioEvento.actualizarEventoService(evento);		
+//
+//		return new ModelAndView("redirect:/homeAdmin");
+//
+//	}
 	
 	// MOSTRAR DETALLE DEL EVENTO
 	@RequestMapping(path = "/detalleEvento")
@@ -92,11 +92,32 @@ public class ControladorEvento {
 	public ModelAndView buscarEventos(@ModelAttribute("evento") Evento evento) {
 		ModelMap model = new ModelMap();
 		
-		 List<Evento> resultadoDeEventos = servicioEvento.buscarEventosService(evento.getNombre());
-		 model.put("keyListarEventos", resultadoDeEventos);
+		List<Evento> ResultadoDeEventos = servicioEvento.buscarEventosService(evento.getNombre());
+		
+		if(ResultadoDeEventos.size() == 0) {
+			
+			model.put("error", "No se ecnontraron resultados con los parametros ingresados");
+			
+			
+		}else {
+			
+			model.put("keyListarEventos", ResultadoDeEventos);
+			
+		}
+		
 		return new ModelAndView("inicio", model);
 	}
+
+	//public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
+	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
+		
+		servicioEvento.actualizarEventoService(evento);		
+
+		return new ModelAndView("redirect:/homeAdmin");
+
+	}
 	
+
 	
 	
 } // FIN CONTROLLER
