@@ -57,5 +57,38 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Usuario.class, id);
 	}
+	@Transactional
+	@Override
+	public void registrarUsuario(Usuario usuario) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(usuario);
+	}
+	
+	@Transactional
+	@Override
+	public Usuario buscarUsuarioPorId(Long id){
+		Session session = sessionFactory.getCurrentSession();	
+		return session.get(Usuario.class,id); 
+	}
+	
+	@Transactional
+	@Override
+	public void actualizarUsuario(Usuario usuario) {
+		Session session = sessionFactory.getCurrentSession();
+		//evento.setMostrarEvento(mostrar);
+		session.update(usuario);
+	}
+
+
+	//Validar registro de Mails
+ 	@Transactional(readOnly = true)	 
+	@Override	 
+	public Usuario validarUsuario(String email){
+		  Session session = sessionFactory.getCurrentSession();
+		  return (Usuario) session.createCriteria(Usuario.class)
+			    .add(Restrictions.eq("email", email))
+			    .setMaxResults(1)
+	            .uniqueResult();
+			 }
 
 }

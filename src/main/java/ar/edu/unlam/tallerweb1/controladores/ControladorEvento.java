@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,12 +17,21 @@ import ar.edu.unlam.tallerweb1.modelo.Evento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEvento;
 
 @Controller
-public class ControladorAdmin {
+public class ControladorEvento {
 	
 	@Inject
 	private ServicioEvento servicioEvento;
 	
-	
+
+	public ServicioEvento getServicioEvento() {
+		return servicioEvento;
+	}
+
+	public void setServicioEvento(ServicioEvento servicioEvento) {
+		this.servicioEvento = servicioEvento;
+	}
+
+
 	// FORMULARIO PARA LA CREACION DEL EVENTO
 	@RequestMapping(path = "/crearEvento")
 	public ModelAndView crearEvento() {
@@ -41,21 +52,9 @@ public class ControladorAdmin {
 			
 			return new ModelAndView("redirect:/homeAdmin");
 	}
-	
-	
-	// LISTADO DE TODOS LOS EVENTOS EN EL HOMEADMIN
-	@RequestMapping(path="/homeAdmin")
-	public ModelAndView homeAdmin(){ 
-		
-		ModelMap model = new ModelMap();
-		model.put("keyListarEventos", servicioEvento.listarTodosEventosService());
-		
-		return new ModelAndView("homeAdmin",model);
-	 }
-	
+
 	
 	// EDITAR EVENTO
-	
 	@RequestMapping(value = "/actualizarEvento")
 	public ModelAndView actualizarEvento( @RequestParam("id") Long id) {
 		
@@ -85,6 +84,17 @@ public class ControladorAdmin {
 		model.put("keyEvento", evento);
 		
 		return new ModelAndView("detalleEvento", model);
+	}
+	
+	
+	// BUSCAR EVENTOS
+	@RequestMapping(path = "/filtros-Busqueda", method = RequestMethod.POST)
+	public ModelAndView buscarEventos(@ModelAttribute("evento") Evento evento) {
+		ModelMap model = new ModelMap();
+		
+		 List<Evento> resultadoDeEventos = servicioEvento.buscarEventosService(evento.getNombre());
+		 model.put("keyListarEventos", resultadoDeEventos);
+		return new ModelAndView("inicio", model);
 	}
 	
 	

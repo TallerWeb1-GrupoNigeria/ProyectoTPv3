@@ -9,4 +9,8 @@ public interface UsuarioDao {
 	public Usuario consultarUsuario (Usuario usuario);
 	public Usuario buscarUsuarioXId(Long id);
 	public Usuario existeUsuarioEnBD(Usuario usuario);
+	public Usuario validarUsuario (String email);
+	public void registrarUsuario(Usuario usuario);
+	public Usuario buscarUsuarioPorId(Long id);
+	public void actualizarUsuario(Usuario usuario);
 }

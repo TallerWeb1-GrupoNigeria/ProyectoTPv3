@@ -36,23 +36,8 @@
 	   </div>
 	   
 	   <div class="form-group">
-	    <label>Direccion:</label>
-	       <form:input path="direccion" type="text" id="direccion" class="input form-control" placeholder="${ evento.getDireccion() }"/>
-	   </div>
-	   
-	   <div class="form-group">
 	    <label>Telefono:</label>
 	       <form:input path="telefono" type="text" id="telefono" class="input form-control" placeholder="${ evento.getTelefono() }"/>
-	   </div>
-	   
-	   <div class="form-group">
-	    <label>Latitud:</label>
-	       <form:input path="Localizacion.latitud" type="text" id="latitud" class="input form-control"/>
-	   </div>
-	   
-	   <div class="form-group">
-	    <label>Longitud:</label>
-	       <form:input path="Localizacion.longitud" type="text" id="longitud" class="input form-control"/>
 	   </div>
 	   
 	   <div class="form-group">

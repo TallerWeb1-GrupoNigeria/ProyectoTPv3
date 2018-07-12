@@ -39,4 +39,14 @@ public class ServicioLoginImpl implements ServicioLogin {
 		return servicioLoginDao.existeUsuarioEnBD(usuario);
 	}
 
+	@Override
+	public Usuario validarUsuario(String email) {
+		return servicioLoginDao.validarUsuario(email);
+	}
+
+	@Override
+	public void registrarUsuario(Usuario usuario) {
+		servicioLoginDao.registrarUsuario(usuario);
+	}
+
 }

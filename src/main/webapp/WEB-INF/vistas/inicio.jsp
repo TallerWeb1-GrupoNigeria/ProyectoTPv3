@@ -54,7 +54,7 @@
 				<!-- BANNER LADO DERECHO -->
 				<div class="col-md-4">
 				<!-- MAPA  -->
-					<h3>Dónde vas a salir hoy ?</h3>
+					<h3>Dónde vas a salir hoy <span>${nombre}?</span></h3>
 					<input id="pac-input" class="controls" type="text" placeholder="Buscar...">
 					<div id="map"></div>
 					<div id="resultados"></div>

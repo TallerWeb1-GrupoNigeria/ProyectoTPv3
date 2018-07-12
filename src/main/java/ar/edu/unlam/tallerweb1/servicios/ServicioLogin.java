@@ -9,4 +9,6 @@ public interface ServicioLogin {
 	Usuario consultarUsuario(Usuario usuario);
 	public Usuario buscarUsuarioXIdSERVICE(Long id);
 	public Usuario existeUsuarioEnBDSERVICE(Usuario usuario);
+	public Usuario validarUsuario (String email);
+	public void registrarUsuario (Usuario usuario);
 }

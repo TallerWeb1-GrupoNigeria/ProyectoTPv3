@@ -5,6 +5,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+ <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js'></script>
+ <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/language/es_ES.min.js'></script>
 
 		<div class = "container">
 			<div class="row justify-content-md-center">
@@ -13,15 +15,15 @@
 				<%--debe referenciar con el nombre usuario, spring mapea los elementos de la vista con los atributos de dicho objeto--%>
 					<%--para eso debe coincidir el valor del elemento path de cada input con el nombre de un atributo del objeto --%>
 				<form:form action="validar-login" method="POST" modelAttribute="usuario">
-			    	<h3 class="form-signin-heading">Taller Web I</h3>
-					<hr class="colorgraph"><br>
+			    	<!-- h3 class="form-signin-heading">Taller Web I</h3>
+					<hr class="colorgraph"--><br>
 
 					<%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados--%>
 					<p>Email: </p>
-					<form:input path="email" id="email" type="email" class="form-control" />
+					<form:input path="email" id="email" type="email" class="form-control" required="required" />
 					<br/>
 					<p>Contraseña</p>
-					<form:input path="password" type="password" id="password" class="form-control"/>     		  
+					<form:input path="password" type="password" id="password" class="form-control" required="required"/>     		  
 					<br/>
 					<button class="btn btn-lg btn-primary btn-block" Type="Submit">Login</button>
 				</form:form>
@@ -34,4 +36,5 @@
 			</div>
 			</div>
 		</div>
+		
   <%@ include file="_footer.jsp" %>

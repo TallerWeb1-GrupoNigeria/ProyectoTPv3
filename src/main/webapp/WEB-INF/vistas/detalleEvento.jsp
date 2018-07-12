@@ -34,10 +34,6 @@
 						<td class="font-weight-bold">${ keyEvento.getHoraFin() }</td>
 					</tr>
 					<tr>
-						<td>Direccion:</td>
-						<td class="font-weight-bold">${ keyEvento.getDireccion() }</td>
-					</tr>
-					<tr>
 						<td>Telefono:</td>
 						<td class="font-weight-bold">${ keyEvento.getTelefono() }</td>
 					</tr>
@@ -56,14 +52,6 @@
 					<tr>
 						<td>Instagram:</td>
 						<td class="font-weight-bold">${ keyEvento.getInstagram() }</td>
-					</tr>
-					<tr>
-						<td>Latitud:</td>
-						<td class="font-weight-bold">${ keyEvento.localizacion.getLatitud() }</td>
-					</tr>
-					<tr>
-						<td>Longitud:</td>
-						<td class="font-weight-bold">${ keyEvento.localizacion.getLongitud() }</td>
 					</tr>
 					<tr>
 						<td>Mostrar?</td>
@@ -111,10 +99,7 @@
 			    <div id="map"></div>
 		    
   			</div>
-        
-        
-        
-        
+
       </div>
       <div>
       		<h4><a href=<c:url value="homeAdmin" /> >Volver a la lista</a></h4>
@@ -133,7 +118,7 @@
 		// Initialize and add the map
 		function initMap() {
 	  		// The location of Uluru
-	  		var uluru = {lat: ${ keyEvento.localizacion.getLatitud() }, lng: ${ keyEvento.localizacion.getLongitud() }};
+	  		var uluru = {lat: -34.6704143 }, lng: -58.56292880000001 }};
 	  		// The map, centered at Uluru
 	  		var map = new google.maps.Map( document.getElementById('map'), {zoom: 16, center: uluru} );
 	  		// The marker, positioned at Uluru
