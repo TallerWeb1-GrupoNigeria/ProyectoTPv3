@@ -62,7 +62,8 @@ public class EventoControllerMock extends SpringTest {
 	public void alValidarLaActualizacionDelEventoDeberiaIrAHomeAdmin() {
 		
 		servicioEventoMock.actualizarEventoService(eventoMock);
-		ModelAndView mav = controladorEvento.validarActualizarEvento(eventoMock, requestMock);
+		//ModelAndView mav = controladorEvento.validarActualizarEvento(eventoMock, requestMock);
+		ModelAndView mav = controladorEvento.validarActualizarEvento(eventoMock);
 		assertThat(mav.getViewName()).isEqualTo("redirect:/homeAdmin");	
 	}
 	

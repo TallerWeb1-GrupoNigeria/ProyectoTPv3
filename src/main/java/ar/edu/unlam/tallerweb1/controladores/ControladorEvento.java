@@ -67,7 +67,8 @@ public class ControladorEvento {
 	
 	
 	@RequestMapping(path = "/validarActualizarEvento", method = RequestMethod.POST)
-	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
+	//public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
+	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento) {
 		
 		servicioEvento.actualizarEventoService(evento);		
 
@@ -89,14 +90,23 @@ public class ControladorEvento {
 	
 	// BUSCAR EVENTOS
 	@RequestMapping(path = "/filtros-Busqueda", method = RequestMethod.POST)
-	public ModelAndView buscarEventos(@ModelAttribute("evento") Evento evento) {
+	public ModelAndView buscarEventos(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		
-		 List<Evento> resultadoDeEventos = servicioEvento.buscarEventosService(evento.getNombre());
-		 model.put("keyListarEventos", resultadoDeEventos);
+		 List<Evento> ResultadoDeEventos = servicioEvento.buscarEventosService(evento.getNombre());
+			
+		if(ResultadoDeEventos.size() == 0) {
+			
+		 model.put("error", "No se ecnontraron resultados con los parametros ingresados");
+			
+		
+		}else {
+			
+			 model.put("keyListarEventos", ResultadoDeEventos);
+				
+				}
+		
 		return new ModelAndView("inicio", model);
 	}
-	
-	
 	
 } // FIN CONTROLLER

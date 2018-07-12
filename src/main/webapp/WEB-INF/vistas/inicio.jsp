@@ -86,12 +86,17 @@
 		    </form:form>
 		</div>
     </div>
-
+    <br>
+	<c:if test="${not empty error}">
+	
+	       <h4><span class="alert alert-warning">${error}</span></h4>
+	     
+    </c:if>	
 	<!-- 2 CARDS -->
 	<!-- LISTA DE EVENTOS  -->
       <div class="row py-2">
       	<c:forEach items="${keyListarEventos}" var="evento">
-			
+
 			<!-- SE AGREGO LA FUNCION IF DE 'SI' PARA MOSTRAR Y 'NO' PARA NO MOSTRAR EL EVENTO -->
 			<c:if test="${ evento.getMostrar() eq 'si' }">
 			 <div class="col-md-4">
