@@ -19,30 +19,24 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Before;
 
-import org.mockito.Mockito;
-
-import ar.edu.unlam.tallerweb1.controladores.*;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 public class LoginControllerMock extends SpringTest {
 	 	
-	 Usuario usuarioMock = mock(Usuario.class);
-     HttpServletRequest requestMock = mock(HttpServletRequest.class);
-     HttpSession sessionMock = mock(HttpSession.class);
-     ServicioLogin servicioLoginMock= mock(ServicioLoginImpl.class);
-     ControladorLogin controladorLogin = new ControladorLogin();
-          
-     @Before
- 		public void ini(){
- 		controladorLogin.setServicioLogin(servicioLoginMock);
- 		}
+	Usuario usuarioMock = mock(Usuario.class);
+	HttpServletRequest requestMock = mock(HttpServletRequest.class);
+	HttpSession sessionMock = mock(HttpSession.class);
+	ServicioLogin servicioLoginMock= mock(ServicioLoginImpl.class);
+     
+    ControladorLogin controladorLogin = new ControladorLogin();
+         
+     
+    @Before
+	public void ini(){
+    	controladorLogin.setServicioLogin(servicioLoginMock);
+	}
 
     @Test
     @Transactional
@@ -51,7 +45,8 @@ public class LoginControllerMock extends SpringTest {
         when(requestMock.getSession()).thenReturn(sessionMock);
         when(usuarioMock.getRol()).thenReturn("admin");
         when(servicioLoginMock.consultarUsuario(usuarioMock)).thenReturn(usuarioMock);
-       requestMock.setAttribute("ROL", usuarioMock.getRol());
+        requestMock.setAttribute("ROL", usuarioMock.getRol());
+        
         ModelAndView modelAndView = controladorLogin.validarLogin(usuarioMock, requestMock);
         assertThat(modelAndView.getViewName()).isEqualTo("redirect:/homeAdmin");
     }
@@ -62,10 +57,12 @@ public class LoginControllerMock extends SpringTest {
         when(requestMock.getSession()).thenReturn(sessionMock);
         when(usuarioMock.getRol()).thenReturn("usuario");
         when(servicioLoginMock.consultarUsuario(usuarioMock)).thenReturn(usuarioMock);
-       requestMock.setAttribute("ROL", usuarioMock.getRol());
+        requestMock.setAttribute("ROL", usuarioMock.getRol());
         ModelAndView modelAndView = controladorLogin.validarLogin(usuarioMock, requestMock);
         assertThat(modelAndView.getViewName()).isEqualTo("redirect:/homeUsuario");
     }
+    
+    
     @Test
     @Transactional
     @Rollback(true)
@@ -97,26 +94,5 @@ public class LoginControllerMock extends SpringTest {
         //ModelAndView modelAndView = controladorLogin.registroValidar(usuarioMock, requestMock);
         assertThat(modelAndView.getViewName()).isEqualTo("registroUsuario");
     }
-    
-   
-    
-//  @Test
-//  @Transactional
-//  @Rollback(true)
-//  public void loginController() {
-//      Usuario usuarioMock = mock(Usuario.class);
-//      HttpServletRequest requestMock = mock(HttpServletRequest.class);
-//      HttpSession sessionMock = mock(HttpSession.class);
-//      ServicioLogin servicioLoginMock= mock(ServicioLoginImpl.class);
-//      ControladorLogin controladorLogin = new ControladorLogin();
-//     // controladorLogin.setServicioLogin(servicioLoginMock);
-//      when(requestMock.getSession()).thenReturn(sessionMock);
-//      when(servicioLoginMock.consultarUsuario(usuarioMock)).thenReturn(usuarioMock);
-//      when(usuarioMock.getRol()).thenReturn("ROL");
-//      requestMock.setAttribute("ROL", usuarioMock.getRol());
-//      ModelAndView modelAndView = controladorLogin.validarLogin(usuarioMock, requestMock);
-//      assertThat(modelAndView.getViewName()).isEqualTo("redirect:/home");
-//  }
-
-}
+ }
  

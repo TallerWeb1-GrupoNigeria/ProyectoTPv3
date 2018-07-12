@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="css/bootstrap-select.min.css">
 <link rel="stylesheet" href="css/estilo-mapa.css" type="text/css">
 
+ <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js'></script>
+ <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/language/es_ES.min.js'></script>
 <script src="js/bootstrap-select.min.js" defer></script>
 <script src="js/mapas.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKsOyLppGoYEHhTvwny8xDgKj96ZzSIFU&libraries=places&callback=initAutocomplete"> </script>
@@ -15,6 +17,8 @@
 				<%--debe referenciar con el nombre usuario, spring mapea los elementos de la vista con los atributos de dicho objeto--%>
 					<%--para eso debe coincidir el valor del elemento path de cada input con el nombre de un atributo del objeto --%>
 				<form:form action="validar-login" method="POST" modelAttribute="usuario">
+			    	<!-- h3 class="form-signin-heading">Taller Web I</h3>
+					<hr class="colorgraph"--><br>
 			    	<h3 class="form-signin-heading"> 
 			    	<c:if test="${empty error}">
 				    	<c:if test="${not empty mensaje}">
@@ -30,10 +34,10 @@
 
 					<%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados--%>
 					<p>Email: </p>
-					<form:input path="email" id="email" type="email" class="form-control" />
+					<form:input path="email" id="email" type="email" class="form-control" required="required" />
 					<br/>
 					<p>Contraseña</p>
-					<form:input path="password" type="password" id="password" class="form-control"/>     		  
+					<form:input path="password" type="password" id="password" class="form-control" required="required"/>     		  
 					<br/>
 					<button class="btn btn-lg btn-primary btn-block" Type="Submit">Login</button>
 				</form:form>

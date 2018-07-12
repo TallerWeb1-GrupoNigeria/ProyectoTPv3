@@ -24,7 +24,25 @@ public class ControladorCarrito {
 	@Inject
 	private ServicioCarrito servicioCarrito;
 	
+
+	public ServicioCarrito getServicioCarrito() {
+		return servicioCarrito;
+	}
+
+	public void setServicioCarrito(ServicioCarrito servicioCarrito) {
+		this.servicioCarrito = servicioCarrito;
+	}
 	
+	public ServicioEvento getServicioEvento() {
+		return servicioEvento;
+	}
+
+	public void setServicioEvento(ServicioEvento servicioEvento) {
+		this.servicioEvento = servicioEvento;
+	}
+	
+	
+
 	// TODO: PARA QUE FUNCIONE EL AGREGAR HAY QUE CARGAR AL MENOS UN USUARIO EN LA BASE DE DATOS!!!!!!!!!!!!!!
 	// AGREGAR EVENTO CARRITO
 	@RequestMapping(path = "/agregarEventoAlCarrito")

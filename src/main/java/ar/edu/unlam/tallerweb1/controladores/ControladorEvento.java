@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +22,7 @@ public class ControladorEvento {
 	@Inject
 	private ServicioEvento servicioEvento;
 	
-	
+
 	public ServicioEvento getServicioEvento() {
 		return servicioEvento;
 	}
@@ -72,7 +74,7 @@ public class ControladorEvento {
 		}
 		return new ModelAndView("homeAdmin", model);
 	}
-		
+
 	@RequestMapping(path = "/validarActualizarEvento", method = RequestMethod.POST)
 	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento) {
 		servicioEvento.actualizarEventoService(evento);		
@@ -80,6 +82,7 @@ public class ControladorEvento {
 		return new ModelAndView("redirect:/homeAdmin");
 	}	
 			
+
 	// MOSTRAR DETALLE DEL EVENTO
 	@RequestMapping(path = "/detalleEvento")
 	public ModelAndView detalleEvento(@RequestParam("id") Long id) {
@@ -96,6 +99,38 @@ public class ControladorEvento {
 		}
 		
 	}
+
+	
+	// BUSCAR EVENTOS
+	@RequestMapping(path = "/filtros-Busqueda", method = RequestMethod.POST)
+	public ModelAndView buscarEventos(@ModelAttribute("evento") Evento evento) {
+		ModelMap model = new ModelMap();
+		
+		List<Evento> ResultadoDeEventos = servicioEvento.buscarEventosService(evento.getNombre());
+		
+		if(ResultadoDeEventos.size() == 0) {
+			
+			model.put("error", "No se ecnontraron resultados con los parametros ingresados");
+			
+			
+		}else {
+			
+			model.put("keyListarEventos", ResultadoDeEventos);
+			
+		}
+		
+		return new ModelAndView("inicio", model);
+	}
+
+	//public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
+	public ModelAndView validarActualizarEvento(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
+		
+		servicioEvento.actualizarEventoService(evento);		
+
+		return new ModelAndView("redirect:/homeAdmin");
+
+	}
+	
 
 	
 	
