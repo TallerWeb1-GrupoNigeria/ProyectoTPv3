@@ -7,6 +7,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 // implelemtacion del DAO de usuarios, la anotacion @Repository indica a Spring que esta clase es un componente que debe
@@ -90,5 +92,15 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			    .setMaxResults(1)
 	            .uniqueResult();
 			 }
+ 	
+ 	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Override
+	public List<Usuario> listarTodosLosUsuarios() {
+		Session session = sessionFactory.getCurrentSession();
+		List<Usuario> listado = session.createCriteria(Usuario.class).list();
+		return listado;
+	}
 
 }

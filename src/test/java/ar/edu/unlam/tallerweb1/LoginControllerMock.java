@@ -56,14 +56,14 @@ public class LoginControllerMock extends SpringTest {
     @Test
     @Transactional
     @Rollback(true)
-    public void rolUsuarioDeberiaIrHomeUsuario() {
+    public void rolUsuarioDeberiaIrInicioHome() {
         when(requestMock.getSession()).thenReturn(sessionMock);
         when(usuarioMock.getRol()).thenReturn("usuario");
         when(servicioLoginMock.consultarUsuario(usuarioMock)).thenReturn(usuarioMock);
         requestMock.setAttribute("ROL", usuarioMock.getRol());
        
         ModelAndView modelAndView = controladorLogin.validarLogin(usuarioMock, requestMock);
-        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/homeUsuario");
+        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/inicioHome");
     }
     
     

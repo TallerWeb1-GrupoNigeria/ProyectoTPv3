@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -25,12 +24,14 @@ public class CarritoDaoImpl implements CarritoDao {
 	
 	Carrito carrito = new Carrito();
 	
+	
 	@Transactional
 	@Override
 	public void crearCarrito(Carrito carrito) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(carrito);
 	}
+	
 	
 	@Transactional
 	@Override
@@ -76,18 +77,30 @@ public class CarritoDaoImpl implements CarritoDao {
 	}
 	
 	
-	// NO FUNCIONA AUN
+/*	// NO FUNCIONA AUN
 	@Transactional
 	@Override
 	public List<Evento> listarEventosDeCarritoXUsuario(Usuario usuario) {
 		Session session = sessionFactory.getCurrentSession();
 		List<Evento> listado = session.createCriteria(Evento.class)
-								.createAlias("carrito", "c")
+								.createAlias("carritos", "c")
 								.createAlias("c.usuario", "u")
 								.add(Restrictions.eq("u.id", usuario.getId()))
-								.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+								.list();
 		return listado;
-		
+	}*/
+	
+	
+	// MODIFICACION 1
+	@Transactional
+	@Override
+	public List<Carrito> listarEventosDeCarritoXUsuario(Usuario usuario) {
+		Session session = sessionFactory.getCurrentSession();
+		List<Carrito> listado = session.createCriteria(Carrito.class)
+								.createAlias("usuario", "u")
+								.add(Restrictions.eq("u.id", usuario.getId()))
+								.list();
+		return listado;
 	}
 	
 	

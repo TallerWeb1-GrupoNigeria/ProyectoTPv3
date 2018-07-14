@@ -19,6 +19,7 @@ import ar.edu.unlam.tallerweb1.modelo.Evento;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCarrito;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEvento;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 
 public class CarritoControllerMock extends SpringTest {
@@ -31,6 +32,7 @@ public class CarritoControllerMock extends SpringTest {
     
     ServicioCarrito servicioCarritoMock = mock(ServicioCarrito.class);
     ServicioEvento servicioEventoMock = mock(ServicioEvento.class);
+    ServicioUsuario servicioUsuarioMock = mock(ServicioUsuario.class);
     
     ControladorCarrito controladorCarrito = new ControladorCarrito();
 	
@@ -46,12 +48,15 @@ public class CarritoControllerMock extends SpringTest {
     @Transactional
     @Rollback(true)
     public void agregarEventoAlCarritoDeberiaIrAMisEventos() {
-        when(requestMock.getSession()).thenReturn(sessionMock);
+    	when(requestMock.getSession()).thenReturn(sessionMock);
         
-        when(servicioEventoMock.buscarEventoPorIdService(eventoMock.getId())).thenReturn(eventoMock);
+    	when(servicioEventoMock.buscarEventoPorIdService(eventoMock.getId())).thenReturn(eventoMock);
+        when(servicioUsuarioMock.buscarUsuarioXIdSERVICE((Long) requestMock.getSession().getAttribute("idUsuario"))).thenReturn(usuarioMock);
         servicioCarritoMock.agregarEventoACarritoSERVICE(usuarioMock, eventoMock);
+        requestMock.setAttribute("idUsuario", usuarioMock.getId());
+    
         
-        ModelAndView mav = controladorCarrito.agregarEventoAlCarrito(eventoMock.getId());
+        ModelAndView mav = controladorCarrito.agregarEventoAlCarrito(eventoMock.getId(), requestMock);
         assertThat(mav.getViewName()).isEqualTo("redirect:/misEventos");
     }
     
@@ -75,9 +80,10 @@ public class CarritoControllerMock extends SpringTest {
     public void alVaciarCarritoDeberiaIrAMisEventos() {
         when(requestMock.getSession()).thenReturn(sessionMock);
         
+        when(servicioUsuarioMock.buscarUsuarioXIdSERVICE((Long) requestMock.getSession().getAttribute("idUsuario"))).thenReturn(usuarioMock);
         servicioCarritoMock.vaciarCarritoSERVICE(usuarioMock);
         
-        ModelAndView mav = controladorCarrito.vaciarCarrito();
+        ModelAndView mav = controladorCarrito.vaciarCarrito(requestMock);
         assertThat(mav.getViewName()).isEqualTo("redirect:/misEventos");
     }
     

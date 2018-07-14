@@ -25,6 +25,10 @@
               <a href="crearEvento" class="nav-link">
                 <i class="fa fa-magic"></i>&nbsp;Crear Evento</a>
             </li>
+            <li class="nav-item">
+              <a href="listarUsuarios" class="nav-link">
+                <i class="fa fa-magic"></i>&nbsp;Listar Usuarios</a>
+            </li>
           </ul>
         </div>
       </div>

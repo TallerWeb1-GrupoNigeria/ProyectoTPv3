@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -8,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.tallerweb1.modelo.Carrito;
 import ar.edu.unlam.tallerweb1.modelo.Evento;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCarrito;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEvento;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 
 
 @Controller
@@ -23,6 +28,9 @@ public class ControladorCarrito {
 	
 	@Inject
 	private ServicioCarrito servicioCarrito;
+	
+	@Inject
+	private ServicioUsuario servicioUsuario;
 	
 
 	public ServicioCarrito getServicioCarrito() {
@@ -42,15 +50,14 @@ public class ControladorCarrito {
 	}
 	
 	
-
-	// TODO: PARA QUE FUNCIONE EL AGREGAR HAY QUE CARGAR AL MENOS UN USUARIO EN LA BASE DE DATOS!!!!!!!!!!!!!!
+	
 	// AGREGAR EVENTO CARRITO
 	@RequestMapping(path = "/agregarEventoAlCarrito")
-	public ModelAndView agregarEventoAlCarrito(@RequestParam("id") Long id) {
+	public ModelAndView agregarEventoAlCarrito(@RequestParam("id") Long idEvento, HttpServletRequest request) {		
 		
-		Usuario usuario = new Usuario(1L,"admin","admin@admin.com","1234","1234","admin");   // TODO:  falta ver como obtener el usuario de sesion actual(logeado)		
-		
-		Evento evento = servicioEvento.buscarEventoPorIdService(id);
+		Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
+		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+		Evento evento = servicioEvento.buscarEventoPorIdService(idEvento);
 		servicioCarrito.agregarEventoACarritoSERVICE(usuario, evento);
 
 		return new ModelAndView("redirect:/misEventos");
@@ -59,10 +66,14 @@ public class ControladorCarrito {
 	
 	// LISTAR EVENTOS POR USUARIO
 	@RequestMapping(path="/misEventos")
-	public ModelAndView misEventos(){ 
-			
+	public ModelAndView misEventos(HttpServletRequest request){ 
+		
+		Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
+		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+		List<Carrito> listadoDelCarrito = servicioCarrito.listarEventosDeCarritoXUsuarioSERVICE(usuario);
+		
 		ModelMap model = new ModelMap();
-		model.put("keyListadoEventos", servicioCarrito.listarTodoCarritoSERVICE());
+		model.put("keyListadoCarritoDelUsuario", listadoDelCarrito );
 		
 		return new ModelAndView("misEventos",model);
 	 }
@@ -78,13 +89,12 @@ public class ControladorCarrito {
 	}
 	
 	
-	
 	// VACIAR CARRITO
 	@RequestMapping(path = "/vaciarCarrito")
-	public ModelAndView vaciarCarrito() {
+	public ModelAndView vaciarCarrito(HttpServletRequest request) {
 		
-		Usuario usuario = new Usuario(1L,"admin","admin@admin.com","1234","1234","admin");
-		
+		Long idUser = (Long) request.getSession().getAttribute("idUsuario");
+		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUser);
 		servicioCarrito.vaciarCarritoSERVICE(usuario);
 
 		return new ModelAndView("redirect:/misEventos");

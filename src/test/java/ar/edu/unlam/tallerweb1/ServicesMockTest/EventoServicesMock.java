@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.ServicesMockTest;
+/*package ar.edu.unlam.tallerweb1.ServicesMockTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThat;
@@ -52,3 +52,4 @@ public class EventoServicesMock extends SpringTest {
 	}
 
 }
+*/

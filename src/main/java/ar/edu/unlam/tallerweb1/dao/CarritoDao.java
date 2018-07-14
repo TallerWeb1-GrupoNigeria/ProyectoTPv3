@@ -13,5 +13,7 @@ public interface CarritoDao {
 	public List<Carrito> listarTodoCarrito();
 	public void vaciarCarrito(Usuario usuario);
 	public void eliminarEventoDeCarrito(Long idCarrito);
-	public List<Evento> listarEventosDeCarritoXUsuario(Usuario usuario);
+	//public List<Evento> listarEventosDeCarritoXUsuario(Usuario usuario);
+	public List<Carrito> listarEventosDeCarritoXUsuario(Usuario usuario); // MODIFICACION 1
+
 }
