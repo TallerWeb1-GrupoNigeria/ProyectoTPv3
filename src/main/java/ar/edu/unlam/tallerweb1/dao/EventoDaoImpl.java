@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +34,10 @@ public class EventoDaoImpl implements EventoDao{
 	@Override
 	public List<Evento> listarTodosLosEventos() {
 		Session session = sessionFactory.getCurrentSession();
-		List<Evento> listado = session.createCriteria(Evento.class).list();
+		List<Evento> listado = session.createCriteria(Evento.class)
+								.addOrder(Order.asc("fecha"))
+								.addOrder(Order.asc("horaInicio"))
+								.list();
 		return listado;
 	}
 
