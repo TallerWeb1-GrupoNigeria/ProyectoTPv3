@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+						http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+ 
+<!-- Definición de jobs -->
+<!-- Un job necesita de un identificador único -->
+<bean id="controlEstadoJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+      <!-- Es necesario indicar la clase que contienen tu tarea -->
+      <property name="jobClass" value="ar.edu.unlam.tallerweb1.quartz.ControlEstadoJob" /> <!-- detail apuntando a la clase y paquete del job-->
+      <property name="durability" value="true" />
+</bean>
+
+ 
+<!-- Definición de Triggers -->
+<!-- Un trigger necesita de un identifiacor único -->
+<bean id="controlEstadoTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+      <!-- Un trigger se asocia a un job mediante su identificador único -->
+      <property name="jobDetail" ref="controlEstadoJob"/>
+      <!-- Existen varias posibilidades en este punto. Nosotros trabajamos con expresiones cron definidas en un fichero properties para usar diferentes configuraciones según el entorno de ejecución -->
+      <property name="cronExpression" value="0 0/1 * 1/1 * ? *" />
+</bean>
+<!-- ... otros triggers -->
+ 
+ 
+<!-- Configuración del sistema -->
+<!-- Finalmente usaremos la clase SchedulerFactoryBean de Quartz para programar e iniciar el sistema de tareas -->
+<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	  <property name="applicationContextSchedulerContextKey" value="applicationContext" />
+      <property name="jobDetails">
+            <list>                  
+                  <ref bean="controlEstadoJob"/>
+            </list>
+      </property>
+      <property name="triggers">
+            <list>
+                  <ref bean="controlEstadoTrigger"/>
+            </list>
+      </property>
+</bean>
+
+</beans>

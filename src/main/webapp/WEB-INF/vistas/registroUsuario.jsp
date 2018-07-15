@@ -30,10 +30,7 @@
 				<form:input type="password" path="password" class="input form-control"/>
 			</div>
 
-			<div class="form-group">
-				<label for="repetircontraseña">Repetir Password: </label>
-				<form:input type="password" path="repassword" class="input form-control"/>
-			</div>
+			
 			<div class="form-group">
 				<label for="nombre">rol: </label>
 				<form:input type="text" path="rol" class="input form-control"/>

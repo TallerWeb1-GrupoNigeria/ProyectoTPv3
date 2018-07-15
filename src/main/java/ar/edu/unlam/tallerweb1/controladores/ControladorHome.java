@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,7 +23,10 @@ public class ControladorHome {
 	
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public ModelAndView inicio() {
+	public ModelAndView inicio(HttpServletRequest request) {
+		System.out.println("ejemplo prueba");
+		request.getSession().getAttribute("valor");
+		
 		return new ModelAndView("redirect:/inicioHome");
 	}
 	

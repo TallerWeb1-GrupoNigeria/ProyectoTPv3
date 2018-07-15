@@ -9,6 +9,16 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:/applicationContext.xml,classpath:/spring-quartz.xml</param-value>
+    </context-param>
+    
+    <!--Se indica el context listener, el mismo hace referencia el archivo de configuracion principal de spring: applicationContext.xml-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <!--Servlet de spring, el mismo es configurado por el archivo spring-servlet.xml y se usa para TODAS las URL, ya que el pattern es /-->
     <servlet>
         <servlet-name>spring</servlet-name>
@@ -24,13 +34,5 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!--Se indica el context listener, el mismo hace referencia el archivo de configuracion principal de spring: applicationContext.xml-->
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/applicationContext.xml</param-value>
-    </context-param>
 </web-app>
