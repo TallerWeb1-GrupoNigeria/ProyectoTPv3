@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,7 +25,7 @@ public class Evento {
 	
 	private String nombre;
 	private String descripcion;
-	private String fecha;
+	private Date fecha;
 	private String horaInicio;
 	private String horaFin; 
 	private String telefono; 
@@ -37,7 +38,7 @@ public class Evento {
 	private String instagram;
 	private String mostrar;
 	private String[] etiqueta;
-
+	private String estado;
 	
 	@ManyToOne
 	private Prestacion prestacion;
@@ -63,7 +64,7 @@ public class Evento {
 	public Evento() {
 	}
 
-	public Evento(String nombre, String descripcion, String fecha, String horaInicio, String horaFin) {
+	public Evento(String nombre, String descripcion, Date fecha, String horaInicio, String horaFin) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
@@ -72,7 +73,7 @@ public class Evento {
 	}
 	
 	
-	public Evento(Long id, String nombre, String descripcion, String fecha, String horaInicio, String horaFin) {
+	public Evento(Long id, String nombre, String descripcion, Date fecha, String horaInicio, String horaFin) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -82,10 +83,10 @@ public class Evento {
 	}
 
 
-	public Evento(String nombre, String descripcion, String fecha, String horaInicio, String horaFin, String telefono,
+	public Evento(String nombre, String descripcion,Date fecha, String horaInicio, String horaFin, String telefono,
 			String imagen1, String imagen2, String imagen3, String correo, String facebook, String twitter,
 			String instagram, String mostrar, String[] etiqueta, Prestacion prestacion,
-			TipoEstablecimiento tipoEstablecimiento, Costo costoClasicacion, Direccion direccion) {
+			TipoEstablecimiento tipoEstablecimiento, Costo costoClasicacion, Direccion direccion, String estado) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
@@ -105,12 +106,21 @@ public class Evento {
 		this.tipoEstablecimiento = tipoEstablecimiento;
 		this.costoClasicacion = costoClasicacion;
 		this.direccion = direccion;
+		this.estado = estado;
 	}
 
 
-	public Evento(Long id, String nombre, String descripcion, String fecha, String horaInicio, String horaFin,
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Evento(Long id, String nombre, String descripcion, Date fecha, String horaInicio, String horaFin,
 			String telefono, String imagen1, String imagen2, String imagen3, String correo, String facebook,
-			String twitter, String instagram, String mostrar, String[] etiqueta, Prestacion prestacion,
+			String twitter, String instagram, String mostrar,String estado, String[] etiqueta, Prestacion prestacion,
 			TipoEstablecimiento tipoEstablecimiento, Costo costoClasicacion, Direccion direccion,
 			List<Carrito> carritos) {
 		this.id = id;
@@ -128,6 +138,7 @@ public class Evento {
 		this.twitter = twitter;
 		this.instagram = instagram;
 		this.mostrar = mostrar;
+		this.estado = estado;
 		this.etiqueta = etiqueta;
 		this.prestacion = prestacion;
 		this.tipoEstablecimiento = tipoEstablecimiento;
@@ -169,12 +180,12 @@ public class Evento {
 	}
 
 
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
 
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

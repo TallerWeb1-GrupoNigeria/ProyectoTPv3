@@ -1,5 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -50,9 +55,33 @@ public class ControladorHome {
 		ModelMap model = new ModelMap();
 		
 	//	model.put("keySelectPrestaciones", servicioPrestacion.listarPrestacionService());
-		
-		model.put("keyListarEventos", servicioEvento.listarTodosEventosService());
-	
+	  List<Evento> listadoEventos = servicioEvento.listarTodosEventosService();
+  	
+		Iterator<Evento> cargaEstados = listadoEventos.listIterator();
+		while (cargaEstados.hasNext()) {
+			Evento miEvento = cargaEstados.next();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			//String fecha = sdf.format(new Date()); 
+			//SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+     		String fechaActualString = sdf.format(new Date());
+     		String fechaEventoString = sdf.format(miEvento.getFecha());
+     		Date fechaActual = new Date();
+			
+     		if(fechaActualString.equals(fechaEventoString)) {
+     			miEvento.setEstado("en curso");
+     		}else if (miEvento.getFecha().before(fechaActual) ) {
+				miEvento.setEstado("evento caducado");
+			}else if(miEvento.getFecha().after(fechaActual)) {
+				miEvento.setEstado("evento proximo");
+			}else {
+				miEvento.setEstado("fecha invalida");
+			}
+			servicioEvento.actualizarEventoService(miEvento);	
+		}
+		List<Evento>  listadoEventos2 = servicioEvento.listarTodosLosEventosEstadoEnProximosService();
+		  List<Evento> listadoEventos1 = servicioEvento.listarTodosLosEventosEstadoCaducadoService();
+		  List<Evento> listadoEventos3 = servicioEvento.listarTodosLosEventosEstadoEnProcesoService();
+		model.put("keyListarEventos", listadoEventos3);		
 		return new ModelAndView ("inicio",model);
 	}
 

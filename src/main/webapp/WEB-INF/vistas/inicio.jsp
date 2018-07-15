@@ -95,6 +95,7 @@
 			     <div class="card-body">
 			       <h5 class="card-title">${ evento.getNombre() }</h5>
 			       <p class="card-text">${ evento.getDescripcion() }</p>
+			       <p class="card-text">${ evento.getEstado() }</p>
 			       <a href="#" class="btn btn-primary">+ Detalles </a>&nbsp;&nbsp;&nbsp;&nbsp;
 			       
 			       <c:if test="${ not empty nombre }">

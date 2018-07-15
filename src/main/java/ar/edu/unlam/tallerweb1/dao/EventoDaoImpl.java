@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,6 +36,40 @@ public class EventoDaoImpl implements EventoDao{
 	public List<Evento> listarTodosLosEventos() {
 		Session session = sessionFactory.getCurrentSession();
 		List<Evento> listado = session.createCriteria(Evento.class)
+								//.add(Restrictions.ge("fecha",new Date()))
+								.addOrder(Order.asc("fecha"))
+								.addOrder(Order.asc("horaInicio"))
+								.list();
+		return listado;
+	}
+	@Transactional
+	@Override
+	public List<Evento> listarTodosLosEventosEstadoEnProceso() {
+		Session session = sessionFactory.getCurrentSession();
+		List<Evento> listado = session.createCriteria(Evento.class)
+								.add(Restrictions.eq("estado","en curso"))
+								.addOrder(Order.asc("fecha"))
+								.addOrder(Order.asc("horaInicio"))
+								.list();
+		return listado;
+	}
+	@Transactional
+	@Override
+	public List<Evento> listarTodosLosEventosEstadoProximos() {
+		Session session = sessionFactory.getCurrentSession();
+		List<Evento> listado = session.createCriteria(Evento.class)
+							     .add(Restrictions.eq("estado","evento proximo"))
+								.addOrder(Order.asc("fecha"))
+								.addOrder(Order.asc("horaInicio"))
+								.list();
+		return listado;
+	}
+	@Transactional
+	@Override
+	public List<Evento> listarTodosLosEventosEstadoCaducados() {
+		Session session = sessionFactory.getCurrentSession();
+		List<Evento> listado = session.createCriteria(Evento.class)
+							     .add(Restrictions.eq("estado","evento caducado"))
 								.addOrder(Order.asc("fecha"))
 								.addOrder(Order.asc("horaInicio"))
 								.list();

@@ -9,6 +9,9 @@ public interface EventoDao {
 
 	public void crearEvento(Evento evento);
 	public List<Evento> listarTodosLosEventos();
+	public List<Evento> listarTodosLosEventosEstadoEnProceso();
+	public List<Evento> listarTodosLosEventosEstadoProximos();
+	public List<Evento> listarTodosLosEventosEstadoCaducados();
 	public void actualizarEvento(Evento evento);
 	public List<Evento> buscarEvento(String ParametroNombre);
 	public Evento buscarEventoPorId(Long id);

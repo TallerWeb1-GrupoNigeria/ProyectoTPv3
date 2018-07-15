@@ -29,6 +29,19 @@ public class ServicioEventoImpl implements ServicioEvento {
 	}
 	
 	@Override
+	public List<Evento> listarTodosLosEventosEstadoEnProcesoService() {
+		return eventoDao.listarTodosLosEventosEstadoEnProceso();
+	}
+	@Override
+	public List<Evento> listarTodosLosEventosEstadoEnProximosService() {
+		return eventoDao.listarTodosLosEventosEstadoProximos();
+	}
+	@Override
+	public List<Evento> listarTodosLosEventosEstadoCaducadoService() {
+		return eventoDao.listarTodosLosEventosEstadoCaducados();
+	}
+	
+	@Override
 	public void actualizarEventoService(Evento evento){
 		eventoDao.actualizarEvento(evento);
 	}

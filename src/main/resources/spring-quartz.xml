@@ -22,7 +22,7 @@
       <!-- Un trigger se asocia a un job mediante su identificador único -->
       <property name="jobDetail" ref="controlEstadoJob"/>
       <!-- Existen varias posibilidades en este punto. Nosotros trabajamos con expresiones cron definidas en un fichero properties para usar diferentes configuraciones según el entorno de ejecución -->
-      <property name="cronExpression" value="0 0/1 * 1/1 * ? *" />
+      <property name="cronExpression" value="0 0/59 * 1/1 * ? *" />
 </bean>
 <!-- ... otros triggers -->
  

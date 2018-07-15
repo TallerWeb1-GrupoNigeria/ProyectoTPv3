@@ -12,5 +12,7 @@ public interface ServicioEvento {
 	public void actualizarEventoService(Evento evento);
 	public List<Evento> buscarEventosService(String dato);
 	public Evento buscarEventoPorIdService(Long id);
-	
+	public List<Evento> listarTodosLosEventosEstadoEnProcesoService();
+	public List<Evento> listarTodosLosEventosEstadoEnProximosService();
+	public List<Evento> listarTodosLosEventosEstadoCaducadoService();	
 }
