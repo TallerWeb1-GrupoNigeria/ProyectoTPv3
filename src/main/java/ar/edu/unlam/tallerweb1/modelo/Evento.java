@@ -57,7 +57,7 @@ public class Evento {
 
 	
 	@OneToMany(mappedBy="evento")		// RELACION CON CARRITO
-	private List<Carrito> carrito = new ArrayList<>();
+	private List<Carrito> carritos = new ArrayList<>();
 	
 	
 	public Evento() {
@@ -112,7 +112,7 @@ public class Evento {
 			String telefono, String imagen1, String imagen2, String imagen3, String correo, String facebook,
 			String twitter, String instagram, String mostrar, String[] etiqueta, Prestacion prestacion,
 			TipoEstablecimiento tipoEstablecimiento, Costo costoClasicacion, Direccion direccion,
-			List<Carrito> carrito) {
+			List<Carrito> carritos) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -133,7 +133,7 @@ public class Evento {
 		this.tipoEstablecimiento = tipoEstablecimiento;
 		this.costoClasicacion = costoClasicacion;
 		this.direccion = direccion;
-		this.carrito = carrito;
+		this.carritos = carritos;
 	}
 
 	
@@ -338,15 +338,16 @@ public class Evento {
 		this.direccion = direccion;
 	}
 
+	public List<Carrito> getCarritos() {
+		return carritos;
+	}
 
-	public List<Carrito> getCarrito() {
-		return carrito;
+	public void setCarritos(List<Carrito> carritos) {
+		this.carritos = carritos;
 	}
 
 
-	public void setCarrito(List<Carrito> carrito) {
-		this.carrito = carrito;
-	}
+
 
 
 }	

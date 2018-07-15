@@ -49,8 +49,8 @@ public class CarritoDAOTest {
 		eventoDao.crearEvento(evento2);
 		eventoDao.crearEvento(evento3);
 		
-		Usuario usuario1 = new Usuario(1L, "Abel", "abel@gmail.com", "1234", "1234", "user");
-		Usuario usuario2 = new Usuario(2L, "Belen", "belen@gmail.com", "1234", "1234", "user");
+		Usuario usuario1 = new Usuario(1L, "Abel", "abel@gmail.com", "1234", "user");
+		Usuario usuario2 = new Usuario(2L, "Belen", "belen@gmail.com", "1234", "user");
 		usuarioDao.crearUsuario(usuario1);
 		usuarioDao.crearUsuario(usuario2);
 		
@@ -94,8 +94,8 @@ public class CarritoDAOTest {
 		eventoDao.crearEvento(evento2);
 		eventoDao.crearEvento(evento3);
 		
-		Usuario usuario1 = new Usuario(1L, "Abel", "abel@gmail.com", "1234", "1234", "user");
-		Usuario usuario2 = new Usuario(2L, "Belen", "belen@gmail.com", "1234", "1234", "user");
+		Usuario usuario1 = new Usuario(1L, "Abel", "abel@gmail.com", "1234", "user");
+		Usuario usuario2 = new Usuario(2L, "Belen", "belen@gmail.com", "1234", "user");
 		usuarioDao.crearUsuario(usuario1);
 		usuarioDao.crearUsuario(usuario2);
 		

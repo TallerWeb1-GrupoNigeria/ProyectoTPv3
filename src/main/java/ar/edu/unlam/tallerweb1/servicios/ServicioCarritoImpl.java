@@ -42,8 +42,8 @@ public class ServicioCarritoImpl implements ServicioCarrito {
 		carritoDao.eliminarEventoDeCarrito(idCarrito);
 	}
 	
-	@Override
-	public List<Evento> listarEventosDeCarritoXUsuarioSERVICE(Usuario usuario) {
+	@Override		
+	public List<Carrito> listarEventosDeCarritoXUsuarioSERVICE(Usuario usuario) {
 		return carritoDao.listarEventosDeCarritoXUsuario(usuario);
 	}
 	

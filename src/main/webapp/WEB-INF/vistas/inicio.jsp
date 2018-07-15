@@ -58,18 +58,7 @@
 					<input id="pac-input" class="controls" type="text" placeholder="Buscar...">
 					<div id="map"></div>
 					<div id="resultados"></div>
-					<!--div class="blockquote">
-						<p class="mb-0">Blockquoute</p>
-						<div class="blockquote-footer">Someone famous in My memories</div>
-					</div>
-					<div class="blockquote">
-						<p class="mb-0">Blockquoute</p>
-						<div class="blockquote-footer">Someone famous in My memories</div>
-					</div>
-					<div class="blockquote">
-						<p class="mb-0">Blockquoute</p>
-						<div class="blockquote-footer">Someone famous in My memories</div>
-					</div-->
+
 				</div>
 				
 			</div>
@@ -87,11 +76,11 @@
 		</div>
     </div>
     <br>
+    
 	<c:if test="${not empty error}">
-	
 	       <h4><span class="alert alert-warning">${error}</span></h4>
-	     
     </c:if>	
+    
 	<!-- 2 CARDS -->
 	<!-- LISTA DE EVENTOS  -->
       <div class="row py-2">
@@ -107,7 +96,11 @@
 			       <h5 class="card-title">${ evento.getNombre() }</h5>
 			       <p class="card-text">${ evento.getDescripcion() }</p>
 			       <a href="#" class="btn btn-primary">+ Detalles </a>&nbsp;&nbsp;&nbsp;&nbsp;
-			       <a href="agregarEventoAlCarrito?id=${ evento.getId() }" class="btn btn-success">Agregar</a>
+			       
+			       <c:if test="${ not empty nombre }">
+			       		<a href="agregarEventoAlCarrito?id=${ evento.getId() }" class="btn btn-success">Agregar</a>
+          			</c:if>
+
 			     </div>
 			   </div>
 			 </div>

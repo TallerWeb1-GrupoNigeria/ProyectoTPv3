@@ -18,32 +18,21 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 @Transactional
 public class ServicioLoginImpl implements ServicioLogin {
 
+	
 	@Inject
 	private UsuarioDao servicioLoginDao;
+
 
 	@Override
 	public Usuario consultarUsuario (Usuario usuario) {
 		return servicioLoginDao.consultarUsuario(usuario);
-	}
-	
-	@Override
-	public Usuario buscarUsuarioXIdSERVICE(Long id) {
-		return servicioLoginDao.buscarUsuarioXId(id);
-	}
-	
-	public void crearUsuarioSERVICE(Usuario usuario) {
-		servicioLoginDao.crearUsuario(usuario);
-	}
-	
-	public Usuario existeUsuarioEnBDSERVICE(Usuario usuario) {
-		return servicioLoginDao.existeUsuarioEnBD(usuario);
 	}
 
 	@Override
 	public Usuario validarUsuario(String email) {
 		return servicioLoginDao.validarUsuario(email);
 	}
-
+	
 	@Override
 	public void registrarUsuario(Usuario usuario) {
 		servicioLoginDao.registrarUsuario(usuario);

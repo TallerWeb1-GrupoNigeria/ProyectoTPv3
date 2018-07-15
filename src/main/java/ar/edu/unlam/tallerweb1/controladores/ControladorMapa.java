@@ -14,7 +14,7 @@ import ar.edu.unlam.tallerweb1.modelo.UbicacionJson;
 public class ControladorMapa {
 
 	
-	@RequestMapping(path = "/inicioHome2",method=RequestMethod.POST)
+	@RequestMapping(path = "/mapaJson",method=RequestMethod.POST)
 	public ModelAndView inicioPost(@RequestBody UbicacionJson ubicacion) {
 		
 		ModelMap model = new ModelMap();
@@ -29,7 +29,7 @@ public class ControladorMapa {
 //				 					ubicacion.getLongitud(), ubicacion.getLatitud());
 //		 model.put("direccion", d1);
 
-		return new ModelAndView ("inicio",model);
+		return new ModelAndView ("crearEvento",model);
 	}
 
 }

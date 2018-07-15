@@ -12,6 +12,6 @@ public interface ServicioCarrito {
 	public List<Carrito> listarTodoCarritoSERVICE();
 	public void vaciarCarritoSERVICE(Usuario usuario);
 	public void eliminarEventoDeCarritoSERVICE(Long idCarrito);
-	public List<Evento> listarEventosDeCarritoXUsuarioSERVICE(Usuario usuario);
-	
+	public List<Carrito> listarEventosDeCarritoXUsuarioSERVICE(Usuario usuario);
+
 }

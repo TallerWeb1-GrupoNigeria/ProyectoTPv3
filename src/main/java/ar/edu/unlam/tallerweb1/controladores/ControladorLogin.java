@@ -16,12 +16,14 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 @Controller
 public class ControladorLogin {
 
+	
 	// La anotacion @Inject indica a Spring que en este atributo se debe setear (inyeccion de dependencias)
 	// un objeto de una clase que implemente la interface ServicioLogin, dicha clase debe estar anotada como
 	// @Service o @Repository y debe estar en un paquete de los indicados en applicationContext.xml
 	@Inject
 	private ServicioLogin servicioLogin;
 
+	
 	public ServicioLogin getServicioLogin() {
 		return servicioLogin;
 	}
@@ -30,6 +32,7 @@ public class ControladorLogin {
 		this.servicioLogin = servicioLogin;
 	}
 
+	
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
 	public ModelAndView irALogin() {
@@ -44,6 +47,7 @@ public class ControladorLogin {
 		return new ModelAndView("login", modelo);
 	}
 
+	
 	// Este metodo escucha la URL validar-login siempre y cuando se invoque con metodo http POST
 	// El método recibe un objeto Usuario el que tiene los datos ingresados en el form correspondiente y se corresponde con el modelAttribute definido en el
 	// tag form:form
@@ -67,7 +71,8 @@ public class ControladorLogin {
 			    }else {
 			    	request.getSession().setAttribute("user", "es user" );
 					request.getSession().setMaxInactiveInterval(600);
-					return new ModelAndView("redirect:/homeUsuario");
+					//return new ModelAndView("redirect:/homeUsuario");
+					return new ModelAndView("redirect:/inicioHome");
 			    }
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
@@ -75,6 +80,8 @@ public class ControladorLogin {
 		}
 		return new ModelAndView("login", model);
 	}
+	
+	
 //	@RequestMapping("/homeUsuario")
 //	public ModelAndView iraMenuUsuario() {
 //		ModelMap modelo = new ModelMap();
@@ -86,52 +93,45 @@ public class ControladorLogin {
 //		// y se envian los datos a la misma  dentro del modelo
 //		return new ModelAndView("homeUsuario", modelo);
 //	}
+	
+	
 	//deslogueo al usuario mata a la session actual
 	@RequestMapping(path = "/desloguearse")
 	public ModelAndView desloguearse(HttpServletRequest request) {
 		request.getSession().invalidate();
 		return new ModelAndView("redirect:/inicioHome");
 	}
+	
+	
 	//Cargo el modelo al Registro
-		@RequestMapping(path = "/registroUsuario")
-		public ModelAndView RegistroUsuario() {
-			Usuario usuario = new Usuario();
-			ModelMap modelo = new ModelMap();
-			modelo.put("usuarioRegistro",usuario);		
-			
-			return new ModelAndView ("registroUsuario",modelo);
-		}
-	
-		//Cargo los datos del registro a la vista de usuarios
-		@RequestMapping(path = "/registrovalidar", method = RequestMethod.POST)
-		public ModelAndView cargarDatosUsuario(@ModelAttribute("usuarioRegistro")Usuario usuarioReg, HttpServletRequest request) {
-			 ModelMap model = new ModelMap();
-			 String email = usuarioReg.getEmail();
-			 if (servicioLogin.validarUsuario(email) == null){
-			    servicioLogin.registrarUsuario(usuarioReg);
-			    request.getSession().setAttribute("mensaje","bienvenido inicia sesion");
-			  return new ModelAndView ("redirect:login");
-			 }else{
-			model.put("error", "Email en uso - intente nuevamente");
-			 }
-			 return new ModelAndView ("registroUsuario", model);
-		   
-		}
-
-	// Escucha la URL /home por GET, y redirige a una vista.
-	@RequestMapping(path = "/home", method = RequestMethod.GET)
-	public ModelAndView irAHome() {
-		return new ModelAndView("home");
-	}
-
-	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
-	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public ModelAndView inicio() {
-		return new ModelAndView("redirect:/inicioHome");
+	@RequestMapping(path = "/registroUsuario")
+	public ModelAndView RegistroUsuario() {
+		Usuario usuario = new Usuario();
+		ModelMap modelo = new ModelMap();
+		modelo.put("usuarioRegistro",usuario);		
+		
+		return new ModelAndView ("registroUsuario",modelo);
 	}
 	
-	@RequestMapping(path = "/inicio", method = RequestMethod.GET)
-	public ModelAndView irAInicio() {
-		return new ModelAndView("inicio");
+	
+	//Cargo los datos del registro a la vista de usuarios
+	@RequestMapping(path = "/registrovalidar", method = RequestMethod.POST)
+	public ModelAndView cargarDatosUsuario(@ModelAttribute("usuarioRegistro")Usuario usuarioReg, HttpServletRequest request) {
+		 ModelMap model = new ModelMap();
+		 String email = usuarioReg.getEmail();
+		 if (servicioLogin.validarUsuario(email) == null) {
+		    servicioLogin.registrarUsuario(usuarioReg);
+		    request.getSession().setAttribute("mensaje","bienvenido inicia sesion");
+		    
+		    return new ModelAndView ("redirect:login");
+		 }
+		 
+		 else { 
+			 model.put("error", "Email en uso - intente nuevamente"); 
+		 }
+		 
+		 return new ModelAndView ("registroUsuario", model);
 	}
+
+
 }

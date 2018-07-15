@@ -40,7 +40,7 @@ public class ControladorUsuario {
 	
 		@RequestMapping(value = "/actualizarUsuario")
 		public ModelAndView actualizarUsuario(@RequestParam ("id") Long id) {
-			Usuario usuario = servicioUsuario.buscarUsuarioPorIdService(id);
+			Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(id);
 			
 			ModelMap model = new ModelMap();
 			model.put("keyUsuario", usuario);
@@ -51,7 +51,7 @@ public class ControladorUsuario {
 		@RequestMapping(value ="/validarActualizarUsuario")
 		public ModelAndView validarActualizarUsuario(@ModelAttribute("keyUsuario") Usuario usuario,HttpServletRequest request) {
 			servicioUsuario.actualizarUsuarioService(usuario);
-			Usuario usuarioActualizado = servicioUsuario.buscarUsuarioPorIdService(usuario.getId());
+			Usuario usuarioActualizado = servicioUsuario.buscarUsuarioXIdSERVICE(usuario.getId());
 			ModelMap model = new ModelMap();
 			model.put("KeyUsuario", usuarioActualizado);
 			request.getSession().setAttribute("nombre", usuarioActualizado.getNombre());
@@ -59,6 +59,15 @@ public class ControladorUsuario {
 			return new ModelAndView("actualizarPerfil", model);	
 		}
 		
-
 	
+	// LISTAR TODOS LOS USUARIOS
+	@RequestMapping(path = "/listarUsuarios")
+	public ModelAndView listarUsuarios() {
+		
+		ModelMap model = new ModelMap();
+		model.put("keyListarUsuarios", servicioUsuario.listarTodosLosUsuariosSERVICE());
+		
+		return new ModelAndView ("listarUsuarios",model);
+	}
+		
 }
