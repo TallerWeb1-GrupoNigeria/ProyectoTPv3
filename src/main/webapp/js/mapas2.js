@@ -145,11 +145,12 @@ function geocodeResult(results, status) {
 function ajaxPost(data){
 	$.ajax({
     	type : 'POST',
-    	url : 'inicioHome2',
+    	url : 'mapaJson',
     	contentType: 'application/json',
-    	data : data,
+    	data : JSON.stringify(data),
     	success : function(data, status, xhr){
-    		console.info(data);
+    		console.log("SUCCESS: ", data);
+			display(data);
 	
     	},
     	error: function(error){
