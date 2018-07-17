@@ -81,7 +81,7 @@ public class ControladorHome {
 		List<Evento>  listadoEventos2 = servicioEvento.listarTodosLosEventosEstadoEnProximosService();
 		  List<Evento> listadoEventos1 = servicioEvento.listarTodosLosEventosEstadoCaducadoService();
 		  List<Evento> listadoEventos3 = servicioEvento.listarTodosLosEventosEstadoEnProcesoService();
-		model.put("keyListarEventos", listadoEventos3);		
+		model.put("keyListarEventos", listadoEventos);		
 		return new ModelAndView ("inicio",model);
 	}
 
