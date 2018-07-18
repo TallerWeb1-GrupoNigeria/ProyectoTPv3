@@ -52,7 +52,8 @@ public class ControladorHome {
 	@RequestMapping(path = "/inicioHome")
 	public ModelAndView inicio(@ModelAttribute("evento") Evento evento) {
 		
-		ModelMap model = new ModelMap();
+			
+			ModelMap model = new ModelMap();
 		
 	//	model.put("keySelectPrestaciones", servicioPrestacion.listarPrestacionService());
 	  List<Evento> listadoEventos = servicioEvento.listarTodosEventosService();
@@ -66,9 +67,25 @@ public class ControladorHome {
      		String fechaActualString = sdf.format(new Date());
      		String fechaEventoString = sdf.format(miEvento.getFecha());
      		Date fechaActual = new Date();
+			SimpleDateFormat sdfHora = new SimpleDateFormat("HH");
+			String horaActual = sdfHora.format(new Date());
+			int horaActualInt = Integer.parseInt(horaActual);
+			//String horaEvento = miEvento.getHoraInicio();
+			//char[] horaInicio = miEvento.getHoraInicio().toCharArray();
+			String[] horaOMinuto = miEvento.getHoraInicio().split(":");
+			int horaInicialEvento = Integer.parseInt(horaOMinuto[0]);
+			String[] horaOMinutoFin = miEvento.getHoraFin().split(":");
+			int horaFinalEvento = Integer.parseInt(horaOMinutoFin[0]);
 			
      		if(fechaActualString.equals(fechaEventoString)) {
-     			miEvento.setEstado("en curso");
+     			for (int i=horaInicialEvento; i<horaFinalEvento ; i++ ) {
+     				if(horaActualInt==i) {
+						miEvento.setEstado("en curso");
+					}else {
+						miEvento.setEstado("Hoy");
+					}
+     			}
+     			
      		}else if (miEvento.getFecha().before(fechaActual) ) {
 				miEvento.setEstado("evento caducado");
 			}else if(miEvento.getFecha().after(fechaActual)) {
@@ -78,9 +95,9 @@ public class ControladorHome {
 			}
 			servicioEvento.actualizarEventoService(miEvento);	
 		}
-		List<Evento>  listadoEventos2 = servicioEvento.listarTodosLosEventosEstadoEnProximosService();
-		  List<Evento> listadoEventos1 = servicioEvento.listarTodosLosEventosEstadoCaducadoService();
-		  List<Evento> listadoEventos3 = servicioEvento.listarTodosLosEventosEstadoEnProcesoService();
+		//List<Evento>  listadoEventos2 = servicioEvento.listarTodosLosEventosEstadoEnProximosService();
+		//List<Evento> listadoEventos1 = servicioEvento.listarTodosLosEventosEstadoCaducadoService();
+		 // List<Evento> listadoEventos3 = servicioEvento.listarTodosLosEventosEstadoEnProcesoService();
 		model.put("keyListarEventos", listadoEventos);		
 		return new ModelAndView ("inicio",model);
 	}
