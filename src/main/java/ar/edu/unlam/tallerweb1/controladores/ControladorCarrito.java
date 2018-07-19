@@ -77,7 +77,16 @@ public class ControladorCarrito {
 		
 		return new ModelAndView("misEventos",model);
 	 }
-	
+	@RequestMapping(path="/eventos")
+	public ModelAndView eventos(HttpServletRequest request){ 
+		
+		List<Evento> listadoDelCarrito = servicioEvento.listarTodosLosEventosEstadoEnProximosService();
+		
+		ModelMap model = new ModelMap();
+		model.put("keyListadoCarritoDelUsuario", listadoDelCarrito );
+		
+		return new ModelAndView("misEventos",model);
+	 }
 	
 	// ELIMINAR EVENTO DE CARRITO
 	@RequestMapping(path = "/eliminarEventoDeCarrito")

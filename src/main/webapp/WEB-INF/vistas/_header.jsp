@@ -77,7 +77,7 @@
                 <i class="fa fa-home fa-home"></i>&nbsp;Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Eventos
+              <a class="nav-link" href="eventos">Eventos
                 <br>
               </a>
             </li>
@@ -86,17 +86,19 @@
 	          	<li class="nav-item"><a class="nav-link" href="misEventos">Mis Eventos<br></a></li>
           	</c:if>
             
-            <li class="nav-item">
+          <!--    <li class="nav-item">
               <a href="#" class="nav-link">Nosotros</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">Contacto</a>
             </li>
-            
+            -->
             <c:if test="${not empty admin }">
             	<li class="nav-item"><a href="homeAdmin" class="nav-link">_Menu Admin_</a></li>
             </c:if>
-            
+            <c:if test="${not empty Live }">
+            	<li class="nav-item"><a href="inicioLive" class="nav-link">Live</a></li>
+            </c:if>
             <%-- <c:if test="${not empty user}">
             	<li class="nav-item"><a href="homeUsuario" class="nav-link">Menu Usuario</a></li>
             </c:if> --%>

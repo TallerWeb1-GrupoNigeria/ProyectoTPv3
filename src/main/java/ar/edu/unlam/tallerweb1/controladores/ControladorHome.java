@@ -26,6 +26,16 @@ public class ControladorHome {
 	private ServicioEvento servicioEvento;
 
 	
+	public ServicioEvento getServicioEvento() {
+		return servicioEvento;
+	}
+
+
+	public void setServicioEvento(ServicioEvento servicioEvento) {
+		this.servicioEvento = servicioEvento;
+	}
+
+
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView inicio(HttpServletRequest request) {
@@ -48,9 +58,22 @@ public class ControladorHome {
 		return new ModelAndView("inicio");
 	}
 	
+	@RequestMapping(path = "/inicioLive")
+	public ModelAndView irAInicioLive(@ModelAttribute("evento") Evento evento,HttpServletRequest request) {
+		ModelMap model = new ModelMap();
+		List<Evento> listadoEventos3 = servicioEvento.listarTodosLosEventosEstadoEnProcesoService();
+		if(listadoEventos3.isEmpty()) {
+			  List<Evento> listadoEventos = servicioEvento.listarTodosEventosService();
+			  model.put("keyListarEventos", listadoEventos);	
+			  return new ModelAndView("inicio", model);
+		}
+		model.put("keyListarEventos", listadoEventos3);	
+		return new ModelAndView("inicio", model);
+	}
+	
 	
 	@RequestMapping(path = "/inicioHome")
-	public ModelAndView inicio(@ModelAttribute("evento") Evento evento) {
+	public ModelAndView inicio(@ModelAttribute("evento") Evento evento, HttpServletRequest request) {
 		
 			
 			ModelMap model = new ModelMap();
@@ -81,8 +104,12 @@ public class ControladorHome {
      			for (int i=horaInicialEvento; i<horaFinalEvento ; i++ ) {
      				if(horaActualInt==i) {
 						miEvento.setEstado("en curso");
+						request.getSession().setAttribute("Live", "si");
+						break;
+					}else if(horaFinalEvento<horaActualInt) {
+						miEvento.setEstado("evento caducado");
 					}else {
-						miEvento.setEstado("Hoy");
+						miEvento.setEstado("hoy");
 					}
      			}
      			
